@@ -1,0 +1,36 @@
+.wrapper {
+    display: inline-flex;
+    gap: 10px;
+    flex-direction: column;
+    padding: 20px;
+    border: 2px solid #e7e7e7;
+    border-radius: 10px;
+    background: rgb(247, 247, 247);
+
+    .row {
+        display: flex;
+        gap: 10px;
+
+        button {
+            width: 40px;
+            height: 40px;
+            font-size: 1.2em;
+        }
+
+        > .numbers {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            > div {
+                display: flex;
+                gap: 10px;
+            }
+        }
+
+        > .row {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}
