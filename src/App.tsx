@@ -1,12 +1,23 @@
-import React from "react";
+import { Route, Routes } from "react-router-dom";
 
-import Calcurate from "./page/calcurate/Index";
+import Style from "./App.module.scss";
 
-const App: React.FC = () => {
+import Lnb from "./layout/lnb/Index";
+import Home from "./views/home/Index";
+import Board from "./views/board/Index";
+
+const App = () => {
     return (
         <>
-            <div>React + Vite</div>
-            <Calcurate />
+            <div id={Style.lnb}>
+                <Lnb />
+            </div>
+            <div id={Style.content}>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/board" element={<Board />} />
+                </Routes>
+            </div>
         </>
     );
 };
