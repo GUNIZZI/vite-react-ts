@@ -1,7 +1,9 @@
-import React from "react";
-
 const Index = () => {
-    return <div>HOME</div>;
+    return (
+        <>
+            <div style={{ height: "5000px" }}>asdasd</div>
+        </>
+    );
 };
 
 export default Index;
