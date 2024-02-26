@@ -178,4 +178,4 @@ table {
         font-optical-sizing: auto;
         font-style: normal;
     }
-`;ai.createRoot(document.getElementById("root")).render($.jsxs(Ve.StrictMode,{children:[$.jsx(I0,{}),$.jsx(Sv,{children:$.jsx(Lv,{})})]}));
+`;ai.createRoot(document.getElementById("root")).render($.jsxs(Ve.StrictMode,{children:[$.jsx(I0,{}),$.jsx(Sv,{basename:"/vite-react-ts",children:$.jsx(Lv,{})})]}));
