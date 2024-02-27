@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { RouterProvider } from 'react-router-dom';
+
+import { router } from './router/default.tsx';
 
 import GlobalStyles from './components/styles/GlobalStyles.ts';
 import './index.scss';
@@ -9,8 +10,6 @@ import './index.scss';
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <GlobalStyles />
-        <Router basename="/vite-react-ts">
-            <App />
-        </Router>
+        <RouterProvider router={router} />
     </React.StrictMode>,
 );
