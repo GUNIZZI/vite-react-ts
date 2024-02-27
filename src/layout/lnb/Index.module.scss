@@ -20,9 +20,10 @@
 
         > strong {
             color: #333;
-            font-size: 3rem;
+            font-size: 3.4em;
             font-weight: bold;
             line-height: 1;
+            letter-spacing: -4px;
         }
         > span {
             color: #666;
@@ -44,11 +45,22 @@
                     display: block;
                     padding: 10px;
 
-                    &:link {
-                        text-decoration: none;
+                    &:hover {
+                        color: #952266;
                     }
-                    &:visited {
-                        color: inherit;
+
+                    @at-root .activeItem {
+                        color: #952266 !important;
+                        text-decoration: underline !important;
+                    }
+                }
+
+                li {
+                    padding-left: 1em;
+
+                    a {
+                        padding: 5px;
+                        font-size: 0.75em;
                     }
                 }
             }

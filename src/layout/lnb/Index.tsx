@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 
-import Style from "./Index.module.scss";
+import Style from './Index.module.scss';
 
 const Index = () => {
     return (
@@ -12,16 +12,24 @@ const Index = () => {
             <nav>
                 <ul>
                     <li>
-                        <Link to="/">Home</Link>
+                        <NavLink to="/story" className={({ isActive }) => (isActive ? Style.activeItem : '')}>
+                            Story
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/board">Board</Link>
+                        <NavLink to="/board" className={({ isActive }) => (isActive ? Style.activeItem : '')}>
+                            Board
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/works/calcurater">Works</Link>
+                        <NavLink to="/works" className={({ isActive }) => (isActive ? Style.activeItem : '')}>
+                            Works
+                        </NavLink>
                         <ul>
                             <li>
-                                <Link to="/works/calcurater">계산기</Link>
+                                <NavLink to="/works/authRouter" className={({ isActive }) => (isActive ? Style.activeItem : '')}>
+                                    권한 라우팅
+                                </NavLink>
                             </li>
                         </ul>
                     </li>
