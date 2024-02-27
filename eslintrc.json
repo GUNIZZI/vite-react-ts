@@ -1,6 +1,6 @@
 {
     "parser": "@typescript-eslint/parser",
-    "plugins": ["@typescript-eslint"],
+    "plugins": ["@typescript-eslint", "html"],
     "extends": ["airbnb", "airbnb/hooks", "plugin:@typescript-eslint/recommended"],
     "parserOptions": {
         "ecmaFeatures": {
