@@ -1,6 +1,6 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent } from 'react';
 
-import Style from "./Input.module.scss";
+import Style from './Input.module.scss';
 
 interface OwnProps {
     value: string;

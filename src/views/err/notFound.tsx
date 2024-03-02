@@ -2,9 +2,9 @@ import { useNavigate } from 'react-router-dom';
 
 import Style from './notFound.module.scss';
 
-interface OwnProps {
-    status: string;
-}
+// interface OwnProps {
+//     status: string;
+// }
 
 const NotFound = ({ status = '' }) => {
     const nav = useNavigate();
