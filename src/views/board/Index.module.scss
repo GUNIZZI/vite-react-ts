@@ -1,0 +1,26 @@
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #ddd;
+    transition: all 0.3s;
+
+    > * {
+        padding: 20px;
+
+        &:not(:last-child) {
+            border-bottom: 1px solid #ddd;
+        }
+
+        &:nth-child(2) {
+            height: 200px;
+        }
+    }
+}
+
+.themeDark {
+    background: #333;
+    color: #fff;
+}
+.themeSmall {
+    font-size: 2em;
+}
