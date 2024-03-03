@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 
 import { fbApp } from '@/service/firebase';
 import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, UserCredential } from 'firebase/auth';
@@ -9,7 +9,7 @@ import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, UserC
 const auth = getAuth(fbApp);
 console.log(auth.currentUser?.displayName);
 await onAuthStateChanged(auth, (user) => {
-    console.log(auth.currentUser?.displayName);
+    console.log(user, auth.currentUser?.displayName);
     isLogined = true;
 });
 

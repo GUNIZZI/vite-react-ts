@@ -20,6 +20,8 @@ const Index = () => {
     const [logined, setLogined] = useState(isLogined);
     const { theme } = useThemeState();
 
+    console.log(setLogined);
+
     function handleGoogleLogin() {
         signInWithGoogle().then((res) => {
             console.log('성공', res);
