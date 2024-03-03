@@ -1,37 +1,41 @@
-// // AuthProvider.tsx
-// import React, { createContext, useContext, useState } from 'react';
+import { Dispatch, createContext, useReducer } from 'react';
 
-// interface AuthContextType {
-//     isAuthenticated: boolean;
-//     login: (token: string) => void;
-//     logout: () => void;
-// }
+export interface I_User {
+    name: string | null;
+    token: string | null;
+}
+type ReducerType = {
+    type: string;
+    payload: string;
+};
 
-// const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const initState: I_User = {
+    name: null,
+    token: null,
+};
 
-// export const useAuth = () => {
-//     const context = useContext(AuthContext);
-//     if (!context) {
-//         throw new Error('useAuth must be used within an AuthProvider');
-//     }
-//     return context;
-// };
+const authReducer = (user: I_User, _setUser: ReducerType) => {
+    // switch (setTheme.type) {
+    //     case 'color':
+    //         return {
+    //             ...theme,
+    //             color: setTheme.payload,
+    //         };
+    //     case 'size':
+    //         return {
+    //             ...theme,
+    //             size: setTheme.payload,
+    //         };
+    // }
+    return user;
+};
 
-// export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-//     const [isAuthenticated, setIsAuthenticated] = useState(false);
+export const AuthContext = createContext<{ user: I_User; setUser: Dispatch<ReducerType> }>({
+    user: initState,
+    setUser: () => null,
+});
 
-//     const login = (token: string) => {
-//         // 여기서는 간단하게 토큰이 있는지만 체크합니다.
-//         if (token) {
-//             setIsAuthenticated(true);
-//         }
-//     };
-
-//     const logout = () => {
-//         setIsAuthenticated(false);
-//     };
-
-//     return <AuthContext.Provider value={{ isAuthenticated, login, logout }}>{children}</AuthContext.Provider>;
-// };
-
-ts;
+export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
+    const [user, setUser] = useReducer(authReducer, initState);
+    return <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>;
+};
