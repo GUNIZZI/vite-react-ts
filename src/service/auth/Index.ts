@@ -1,12 +1,14 @@
 // import { useEffect, useState } from 'react';
 
+import { I_User } from '@/context/auth/AuthContext';
 import { fbApp } from '@/service/firebase';
-import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, UserCredential } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, UserCredential, signInWithEmailAndPassword } from 'firebase/auth';
 
 /**
  * 로그인 정보
  */
 const auth = getAuth(fbApp);
+console.log(auth);
 // console.log('auth  >>  ', auth.currentUser?.displayName);
 // await onAuthStateChanged(auth, (user) => {
 //     console.log('change');
@@ -21,20 +23,41 @@ const isLogined: boolean = false;
 
 /**
  * 구글 로그인(관리자)
- * @returns {Promise}
+ * @returns {Promise | I_User | null}
  */
-const signInWithGoogle = async (): Promise<UserCredential> => {
-    // const signInWithGoogle = async () => {
-    const provider = new GoogleAuthProvider();
+// const signInWithGoogle = async (): Promise<UserCredential | I_User | null> => {
+//     // const signInWithGoogle = async () => {
 
-    try {
-        // const auth = getAuth(fbApp);
-        const res = await signInWithPopup(auth, provider);
-        return res; // 반환되는 값의 타입은 signInWithPopup의 반환값과 일치해야 합니다.
-    } catch (error) {
-        console.error('Error signing in with Google:', error);
-        throw error; // 예외를 다시 throw하여 호출하는 측에서 처리할 수 있도록 합니다.
-    }
-};
+//     if (!auth.currentUser) {
+//         try {
+//             // const auth = getAuth(fbApp);
+//             const provider = new GoogleAuthProvider();
+//             return await signInWithPopup(auth, provider);
+//         } catch (error) {
+//             console.error('Error signing in with Google:', error);
+//             throw error; // 예외를 다시 throw하여 호출하는 측에서 처리할 수 있도록 합니다.
+//         }
+//     } else {
+//         return {
+//             name: auth.currentUser.displayName,
+//             token: 'accessToken' in auth.currentUser ? String(auth.currentUser.accessToken) : null,
+//         };
+//     }
+// };
 
-export { isLogined, signInWithGoogle };
+// signInWithEmailAndPassword(auth, id, pwd)
+//     .then((user) => {
+//         // Signed in
+//         console.log(user); // user_name 바꿔주려고 콘솔창에 찍어봄
+//         dispatch(setUser({ id: id, user_name: user.user.displayName, user_profile: '' }));
+//         history.push('/'); // 로그인하면 바로 메인페이지 이동
+//         // ...
+//     })
+//     .catch((error) => {
+//         const errorCode = error.code;
+//         const errorMessage = error.message;
+//         console.log(errorMessage);
+//     });
+
+// export { auth, isLogined, signInWithGoogle };
+export { auth, isLogined };

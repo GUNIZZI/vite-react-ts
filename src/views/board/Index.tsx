@@ -6,7 +6,7 @@ import LayoutFooter from './LayoutFooter';
 
 import Style from './Index.module.scss';
 import { I_Theme } from '@/context/theme2/ThemeContext';
-import { isLogined, signInWithGoogle } from '@/service/auth/Index';
+import { isLogined } from '@/service/auth/Index';
 import { useState, useEffect } from 'react';
 
 const getClassName = (theme: I_Theme) => {
@@ -23,9 +23,9 @@ const Index = () => {
     console.log(setLogined);
 
     function handleGoogleLogin() {
-        signInWithGoogle().then((res) => {
-            console.log('성공', res);
-        });
+        // signInWithGoogle().then((res) => {
+        //     console.log('성공', res);
+        // });
     }
 
     setTimeout(() => {
