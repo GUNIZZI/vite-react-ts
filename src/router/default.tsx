@@ -3,8 +3,8 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import App from '@/App';
 import Story from '@/views/story/Index';
 import Board from '@/views/board/Index';
-import Works_AuthRouter from '@/views/works/authRouter/Index';
 
+import PrivateRoute from './PrivateRoute';
 import NotFound from '@/views/err/notFound';
 
 const routes = [
@@ -19,25 +19,42 @@ const routes = [
             },
             {
                 path: '/board',
-                element: <Board />,
+                element: <PrivateRoute />,
+                children: [{ path: '', element: <Board /> }],
+
+                // element: (
+                //     <PrivateRoute authentication={true}>
+                //         <Board />
+                //     </PrivateRoute>
+                // ),
             },
             {
                 path: '/works',
                 children: [
-                    {
-                        path: '',
-                        element: <Navigate to="authRouter" />,
-                    },
-                    {
-                        path: 'authRouter',
-                        element: <Works_AuthRouter />,
-                    },
+                    // {
+                    //     path: '',
+                    //     element: <Navigate to="authRouter" />,
+                    // },
+                    // {
+                    //     path: 'authRouter',
+                    //     element: <Works_AuthRouter />,
+                    // },
                 ],
             },
         ],
     },
 ];
 
-export const router = createBrowserRouter(routes, {
+// const routerInit = await createBrowserRouter(routes, {
+//     basename: '/vite-react-ts/',
+// });
+
+// export const routerInit = () => {
+//     return createBrowserRouter(routes, {
+//         basename: '/vite-react-ts/',
+//     });
+// };
+
+export const Routers = createBrowserRouter(routes, {
     basename: '/vite-react-ts/',
 });

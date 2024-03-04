@@ -1,20 +1,26 @@
-// // PrivateRoute.tsx
-// import React from 'react';
-// // import { Route, Navigate } from 'react-router-dom';
-// // import { useAuth } from './AuthProvider';
+// PrivateRoute.tsx
+import { ReactElement, useEffect, useState } from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
+import { isLogined } from '@/service/auth/Index';
 
-// interface PrivateRouteProps {
-//     path: string;
-//     element: React.ReactNode;
-// }
+interface OwnProps {
+    children?: ReactElement;
+}
 
-// const PrivateRoute = ({ path, element }: PrivateRouteProps) => {
-//     console.log(path, element);
-//     // const { isAuthenticated } = useAuth();
+const PrivateRoute = () => {
+    console.log('PrivateRoute', isLogined);
+    // const [loginChk, setLoginChk] = useState(false);
 
-//     // return isAuthenticated ? <Route path={path} element={element} /> : <Navigate to="/login" replace />;
+    // useEffect(() => {
+    //     const checkLoginStatus = async () => {
+    //         const loggedIn = await isLogined;
+    //         setLoginChk(loggedIn);
+    //     };
 
-//     return <>asd</>;
-// };
+    //     checkLoginStatus();
+    // }, []);
 
-// export default PrivateRoute;
+    return isLogined ? <Outlet /> : <Navigate to="/" replace />;
+};
+
+export default PrivateRoute;
