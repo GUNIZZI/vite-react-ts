@@ -3,7 +3,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import Style from './Login.module.scss';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/service/auth/Index';
-import { useAuthState } from '@/context/auth/AuthState';
+import { useAuthState } from '@/app/providers/auth/AuthState';
 import { redirect } from 'react-router-dom';
 
 interface I_Inputs {

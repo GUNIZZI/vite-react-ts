@@ -1,21 +1,11 @@
-import { useThemeState } from '@/context/theme2/ThemeState';
-
 import LayoutTop from './LayoutTop';
 import LayoutContent from './LayoutContent';
 import LayoutFooter from './LayoutFooter';
 
 import Style from './Index.module.scss';
-import { I_Theme } from '@/context/theme2/ThemeContext';
 import { auth, isLogined } from '@/service/auth/Index';
 import { useState, useEffect } from 'react';
 import { redirect } from 'react-router-dom';
-
-const getClassName = (theme: I_Theme) => {
-    const result: string[] = [];
-    if (theme.color === 'dark') result.push(Style.themeDark);
-    if (theme.size === 'small') result.push(Style.themeSmall);
-    return result.join(' ');
-};
 
 // function sleep(ms: number): Promise<void> {
 //     return new Promise((resolve) => {
@@ -41,7 +31,6 @@ export const loader = async () => {
 
 const Index = () => {
     const [logined] = useState(isLogined);
-    const { theme } = useThemeState();
 
     function handleGoogleLogin() {
         // signInWithGoogle().then((res) => {
@@ -54,7 +43,7 @@ const Index = () => {
     }, [logined]);
 
     return (
-        <div id={Style.wrapper} className={getClassName(theme)}>
+        <div id={Style.wrapper}>
             {logined ? 'A' : 'B'}
             <button onClick={handleGoogleLogin}>로그인</button>
 

@@ -1,8 +1,8 @@
 import ReactDOM from 'react-dom/client';
 
-import Routers from './router/Router.tsx';
-import GlobalStyles from './components/styles/GlobalStyles.ts';
-import './index.scss';
+import Routers from './app/router/Router.tsx';
+import GlobalStyles from './app/styles/GlobalStyles.ts';
+import '@/app/styles/index.scss';
 
 const App = () => {
     return (

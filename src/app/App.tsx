@@ -1,9 +1,9 @@
-import { AuthProvider } from './context/auth/AuthContext';
+import { AuthProvider } from './providers/auth/AuthContext';
 import { Outlet, useNavigation } from 'react-router-dom';
 
-import Style from '@/App.module.scss';
+import Style from './App.module.scss';
 
-import Lnb from '@/layout/lnb/Index';
+import Lnb from '@/widget/layout/lnb/Index';
 
 const App = () => {
     const navigation = useNavigation();

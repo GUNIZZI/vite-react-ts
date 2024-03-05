@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import Style from './Index.module.scss';
-import { useAuthState } from '@/context/auth/AuthState';
+import { useAuthState } from '@/app/providers/auth/AuthState';
 
 const Index = () => {
     const navigate = useNavigate();
