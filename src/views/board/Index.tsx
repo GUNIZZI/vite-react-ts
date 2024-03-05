@@ -17,11 +17,11 @@ const getClassName = (theme: I_Theme) => {
     return result.join(' ');
 };
 
-function sleep(ms: number): Promise<void> {
-    return new Promise((resolve) => {
-        setTimeout(resolve, ms);
-    });
-}
+// function sleep(ms: number): Promise<void> {
+//     return new Promise((resolve) => {
+//         setTimeout(resolve, ms);
+//     });
+// }
 
 export const loader = async () => {
     // await sleep(3000);
@@ -34,12 +34,13 @@ export const loader = async () => {
             } else return null;
         })
         .catch((err) => {
+            console.log('loader err', err);
             return null;
         });
 };
 
 const Index = () => {
-    const [logined, setLogined] = useState(isLogined);
+    const [logined] = useState(isLogined);
     const { theme } = useThemeState();
 
     function handleGoogleLogin() {

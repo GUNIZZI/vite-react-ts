@@ -11,11 +11,11 @@ interface I_Inputs {
     pw: string;
 }
 
-function sleep(ms: number): Promise<void> {
-    return new Promise((resolve) => {
-        setTimeout(resolve, ms);
-    });
-}
+// function sleep(ms: number): Promise<void> {
+//     return new Promise((resolve) => {
+//         setTimeout(resolve, ms);
+//     });
+// }
 
 export const loader = async () => {
     // await sleep(3000);
@@ -28,6 +28,7 @@ export const loader = async () => {
             } else return null;
         })
         .catch((err) => {
+            console.log('err', err);
             return null;
         });
 };

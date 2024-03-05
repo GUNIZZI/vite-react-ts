@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from '@/App';
 import Login, { loader as LoginLoader } from '@/views/member/login/Login';
@@ -8,11 +8,11 @@ import Board, { loader as BoardLoader } from '@/views/board/Index';
 import PrivateRoute from './PrivateRoute';
 import NotFound from '@/views/err/notFound';
 
-function sleep(ms: number): Promise<void> {
-    return new Promise((resolve) => {
-        setTimeout(resolve, ms);
-    });
-}
+// function sleep(ms: number): Promise<void> {
+//     return new Promise((resolve) => {
+//         setTimeout(resolve, ms);
+//     });
+// }
 /**
  * fallbackElement
  * - RouterProvider에 선언하며 App이 로드 되는 동안 보여지는 UI

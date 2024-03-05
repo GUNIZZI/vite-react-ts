@@ -1,8 +1,7 @@
 // import { useEffect, useState } from 'react';
 
-import { I_User } from '@/context/auth/AuthContext';
 import { fbApp } from '@/service/firebase';
-import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, UserCredential, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 
 /**
  * 로그인 정보

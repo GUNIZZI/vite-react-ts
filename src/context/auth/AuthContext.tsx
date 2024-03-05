@@ -1,4 +1,4 @@
-import { Dispatch, createContext, useEffect, useMemo, useReducer, useState } from 'react';
+import { Dispatch, createContext, useEffect, useReducer, useState } from 'react';
 
 import { auth } from '@/service/auth/Index';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
@@ -39,7 +39,9 @@ const authReducer = (user: I_User, userAction: ReducerType) => {
                         token: null,
                     } as I_User;
                 })
-                .catch((err) => {});
+                .catch((err) => {
+                    console.log('로그아웃 실패', err);
+                });
     }
     return user;
 };
