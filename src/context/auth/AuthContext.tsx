@@ -1,7 +1,7 @@
-import { Dispatch, createContext, useEffect, useReducer } from 'react';
+import { Dispatch, createContext, useEffect, useMemo, useReducer, useState } from 'react';
 
 import { auth } from '@/service/auth/Index';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 export interface I_User {
     name: string | null;
@@ -17,53 +17,63 @@ const initState: I_User = {
     token: null,
 };
 
-const authReducer = (user: I_User, setUser: ReducerType) => {
-    switch (setUser.type) {
-        // 자동 로그인
+const authReducer = (user: I_User, userAction: ReducerType) => {
+    switch (userAction.type) {
+        // 로그인
         case 'login':
-            if (setUser.payload) {
-                const name = 'name' in setUser.payload ? setUser.payload.name : 'displayName' in setUser.payload ? setUser.payload.displayName : null;
-                const token = 'token' in setUser.payload ? setUser.payload.token : 'accessToken' in setUser.payload ? setUser.payload.accessToken : null;
+            if (userAction.payload) {
+                const name = 'name' in userAction.payload ? userAction.payload.name : null;
+                const token = 'token' in userAction.payload ? userAction.payload.token : null;
                 return {
                     name: name,
                     token: token,
                 } as I_User;
             }
             break;
-        // 구글 로그인
-        case 'loginWithGoogle':
-        // signInWithGoogle()
-        //     .then((res) => {
-        //         console.log('login on -> ', res);
-        //     })
-        //     .catch((err) => {
-        //         console.log('error', err);
-        //     });
+        // 로그아웃
+        case 'logout':
+            signOut(auth)
+                .then(() => {
+                    return {
+                        name: null,
+                        token: null,
+                    } as I_User;
+                })
+                .catch((err) => {});
     }
     return user;
 };
 
-export const AuthContext = createContext<{ user: I_User; setUser: Dispatch<ReducerType> }>({
+export const AuthContext = createContext<{ user: I_User; userAction: Dispatch<ReducerType>; isLogined: boolean }>({
     user: initState,
-    setUser: () => null,
+    userAction: () => null,
+    isLogined: false,
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-    const [user, setUser] = useReducer(authReducer, initState);
+    const [user, userAction] = useReducer(authReducer, initState);
+    const [isLogined, setIsLogined] = useState(false);
 
     // 로그인되어 있으면
     useEffect(() => {
         onAuthStateChanged(auth, (userInfo) => {
             if (userInfo) {
-                setUser({
+                const payload: I_User = {
+                    name: userInfo.email,
+                    token: 'accessToken' in userInfo ? String(userInfo.accessToken) : null,
+                };
+                userAction({
                     type: 'login',
-                    payload: {
-                        name: userInfo.displayName,
-                        token: 'accessToken' in userInfo ? userInfo.accessToken : '',
-                    },
+                    payload,
                 });
+                setIsLogined(true);
+            } else {
+                userAction({
+                    type: 'logout',
+                });
+                setIsLogined(false);
             }
         });
     }, []);
-    return <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{ user, userAction, isLogined }}>{children}</AuthContext.Provider>;
 };

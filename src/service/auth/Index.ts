@@ -8,7 +8,6 @@ import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, UserC
  * 로그인 정보
  */
 const auth = getAuth(fbApp);
-console.log(auth);
 // console.log('auth  >>  ', auth.currentUser?.displayName);
 // await onAuthStateChanged(auth, (user) => {
 //     console.log('change');

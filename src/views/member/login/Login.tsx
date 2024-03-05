@@ -1,18 +1,42 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 import Style from './Login.module.scss';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/service/auth/Index';
+import { useAuthState } from '@/context/auth/AuthState';
+import { redirect } from 'react-router-dom';
 
 interface I_Inputs {
     id: string;
     pw: string;
 }
 
-const Login = () => {
-    const [inputs, setInputs] = useState<I_Inputs>({ id: '', pw: '' });
-    const [errors, setErrors] = useState<I_Inputs>({ id: '', pw: '' });
+function sleep(ms: number): Promise<void> {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+}
 
+export const loader = async () => {
+    // await sleep(3000);
+    return await auth
+        .authStateReady()
+        .then(() => {
+            if (auth.currentUser) {
+                console.log('auth 있음  >>  ', auth.currentUser);
+                return redirect('/');
+            } else return null;
+        })
+        .catch((err) => {
+            return null;
+        });
+};
+
+const Login = () => {
+    const { userAction } = useAuthState();
+    const [inputs, setInputs] = useState<I_Inputs>({ id: '', pw: '' });
+
+    // 입력 이벤트
     const evtInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const val = e.target.value;
         setInputs((userInfo) => ({
@@ -21,37 +45,22 @@ const Login = () => {
         }));
     };
 
-    const validate = () => {
-        const errorMsg = {
-            id: '',
-            pw: '',
-        };
-        if (!inputs.id.trim()) errorMsg.id = '이메일을 입력하세요';
-        if (!inputs.pw.trim()) errorMsg.pw = '비밀번호를 입력하세요';
-
-        return errorMsg;
-    };
-    useEffect(() => {
-        setErrors(validate());
-    }, [inputs]);
-
+    // 서브밋
     const hndlOnSubmit = (e: FormEvent) => {
         e.preventDefault();
-        // alert(JSON.stringify(values, null, 2));
-
         signInWithEmailAndPassword(auth, inputs.id, inputs.pw)
             .then((user) => {
-                console.log('login -------------', user);
-                //         // Signed in
-                //         // console.log(user); // user_name 바꿔주려고 콘솔창에 찍어봄
-                //         // dispatch(setUser({ id: id, user_name: user.user.displayName, user_profile: '' }));
-                //         // history.push('/'); // 로그인하면 바로 메인페이지 이동
-                //         // ...
+                userAction({
+                    type: 'login',
+                    payload: {
+                        name: user.user.email,
+                        token: 'accessToken' in user.user ? user.user.accessToken : '',
+                    },
+                });
+                history.back();
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorMessage);
+                if (error.code === 'auth/invalid-credential') alert('유효하지않은 계정 정보입니다.');
             });
     };
 

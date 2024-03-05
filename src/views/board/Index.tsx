@@ -6,8 +6,9 @@ import LayoutFooter from './LayoutFooter';
 
 import Style from './Index.module.scss';
 import { I_Theme } from '@/context/theme2/ThemeContext';
-import { isLogined } from '@/service/auth/Index';
+import { auth, isLogined } from '@/service/auth/Index';
 import { useState, useEffect } from 'react';
+import { redirect } from 'react-router-dom';
 
 const getClassName = (theme: I_Theme) => {
     const result: string[] = [];
@@ -16,21 +17,36 @@ const getClassName = (theme: I_Theme) => {
     return result.join(' ');
 };
 
+function sleep(ms: number): Promise<void> {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+}
+
+export const loader = async () => {
+    // await sleep(3000);
+    return await auth
+        .authStateReady()
+        .then(() => {
+            if (!auth.currentUser) {
+                console.log('auth 없음  >>  ', auth.currentUser);
+                return redirect('/login');
+            } else return null;
+        })
+        .catch((err) => {
+            return null;
+        });
+};
+
 const Index = () => {
     const [logined, setLogined] = useState(isLogined);
     const { theme } = useThemeState();
-
-    console.log(setLogined);
 
     function handleGoogleLogin() {
         // signInWithGoogle().then((res) => {
         //     console.log('성공', res);
         // });
     }
-
-    setTimeout(() => {
-        console.log(isLogined);
-    }, 1000);
 
     useEffect(() => {
         // console.log('Auth  >> ', auth);

@@ -5,17 +5,23 @@ import { useAuthState } from '@/context/auth/AuthState';
 
 const Index = () => {
     const navigate = useNavigate();
-    const { user, setUser } = useAuthState();
+    const { user, userAction, isLogined } = useAuthState();
 
-    // console.log(user);
-    // console.log(setUser);
+    console.log(user);
 
     return (
         <div className={Style.wrapper}>
             <h1>
                 <strong>GUNI</strong>
                 <span>Vite+React+TS</span>
-                {user.name ? <span>user.name</span> : <button onClick={() => navigate('login')}>관리자 모드</button>}
+                {isLogined ? (
+                    <span>
+                        {user.name}
+                        <button onClick={() => userAction({ type: 'logout' })}>로그아웃</button>
+                    </span>
+                ) : (
+                    <button onClick={() => navigate('login')}>관리자 모드</button>
+                )}
             </h1>
             <nav>
                 <ul>

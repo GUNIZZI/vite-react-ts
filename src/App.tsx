@@ -1,24 +1,23 @@
 import { AuthProvider } from './context/auth/AuthContext';
-// import { ThemeProvider } from './context/theme2/ThemeContext';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigation } from 'react-router-dom';
 
 import Style from '@/App.module.scss';
 
 import Lnb from '@/layout/lnb/Index';
 
 const App = () => {
+    const navigation = useNavigation();
+
     return (
         <>
-            {/* <ThemeProvider> */}
             <AuthProvider>
                 <div id={Style.lnb}>
                     <Lnb />
                 </div>
-                <div id={Style.content}>
+                <div id={Style.content} className={navigation.state === 'loading' ? Style['is-loading'] : ''}>
                     <Outlet />
                 </div>
             </AuthProvider>
-            {/* </ThemeProvider> */}
         </>
     );
 };

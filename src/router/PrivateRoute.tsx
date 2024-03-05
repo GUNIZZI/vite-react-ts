@@ -1,26 +1,17 @@
 // PrivateRoute.tsx
-import { ReactElement, useEffect, useState } from 'react';
+import { useAuthState } from '@/context/auth/AuthState';
+import { useEffect } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { isLogined } from '@/service/auth/Index';
-
-interface OwnProps {
-    children?: ReactElement;
-}
 
 const PrivateRoute = () => {
-    console.log('PrivateRoute', isLogined);
-    // const [loginChk, setLoginChk] = useState(false);
+    const tmp = true;
+    const { isLogined } = useAuthState();
 
     // useEffect(() => {
-    //     const checkLoginStatus = async () => {
-    //         const loggedIn = await isLogined;
-    //         setLoginChk(loggedIn);
-    //     };
-
-    //     checkLoginStatus();
+    //     alert('로그인이 필요한 서비스입니다.');
     // }, []);
 
-    return isLogined ? <Outlet /> : <Navigate to="/" replace />;
+    return isLogined ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
 export default PrivateRoute;
