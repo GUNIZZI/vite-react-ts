@@ -1,6 +1,6 @@
 // import { useEffect, useState } from 'react';
 
-import { fbApp } from '@/service/firebase';
+import { fbApp } from '@/features/auth/firebase';
 import { getAuth } from 'firebase/auth';
 
 /**

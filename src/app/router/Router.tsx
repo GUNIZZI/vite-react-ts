@@ -1,9 +1,9 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from '@/app/App';
-import Login, { loader as LoginLoader } from '@/pages/member/login/Login';
-import Story from '@/pages/story/Index';
-import Board, { loader as BoardLoader } from '@/pages/board/Index';
+import { Login, LoginLoader } from '@/features/auth/login/index';
+import { Story } from '@/pages/story/index';
+import { Board, BoardLoader } from '@/pages/board/index';
 
 import PrivateRoute from './PrivateRoute';
 import NotFound from '@/pages/err/notFound';

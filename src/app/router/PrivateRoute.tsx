@@ -1,5 +1,5 @@
 // PrivateRoute.tsx
-import { useAuthState } from '@/app/providers/auth/AuthState';
+import { useAuthState } from '@/app/providers/auth/state';
 import { Navigate, Outlet } from 'react-router-dom';
 
 const PrivateRoute = () => {

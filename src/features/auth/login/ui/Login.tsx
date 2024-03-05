@@ -2,36 +2,16 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 
 import Style from './Login.module.scss';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '@/service/auth/Index';
-import { useAuthState } from '@/app/providers/auth/AuthState';
+import { auth } from '@/features/auth/user/User';
+import { useAuthState } from '@/app/providers/auth/state';
 import { redirect } from 'react-router-dom';
-
-interface I_Inputs {
-    id: string;
-    pw: string;
-}
+import { I_Inputs } from '../model/input';
 
 // function sleep(ms: number): Promise<void> {
 //     return new Promise((resolve) => {
 //         setTimeout(resolve, ms);
 //     });
 // }
-
-export const loader = async () => {
-    // await sleep(3000);
-    return await auth
-        .authStateReady()
-        .then(() => {
-            if (auth.currentUser) {
-                console.log('auth 있음  >>  ', auth.currentUser);
-                return redirect('/');
-            } else return null;
-        })
-        .catch((err) => {
-            console.log('err', err);
-            return null;
-        });
-};
 
 const Login = () => {
     const { userAction } = useAuthState();
@@ -85,4 +65,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export { Login };

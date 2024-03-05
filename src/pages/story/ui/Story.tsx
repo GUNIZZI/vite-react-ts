@@ -1,15 +1,9 @@
-import { db } from '@/service/firebase';
+import { db } from '@/features/auth/firebase';
 import { doc, getDoc, Timestamp } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
+import { I_Story } from '../model/user';
 
-interface I_Story {
-    user: string;
-    date: Timestamp;
-    title: string;
-    content: string;
-}
-
-const Index = () => {
+const Story = () => {
     const [test, setTest] = useState<I_Story>({ user: '', date: Timestamp.now(), title: '', content: '' });
 
     // async - await로 데이터 fetch 대기
@@ -38,4 +32,4 @@ const Index = () => {
     );
 };
 
-export default Index;
+export { Story };

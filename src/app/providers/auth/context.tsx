@@ -1,12 +1,9 @@
 import { Dispatch, createContext, useEffect, useReducer, useState } from 'react';
 
-import { auth } from '@/service/auth/Index';
+import { auth } from '@/features/auth/user/User';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { I_User } from './model';
 
-export interface I_User {
-    name: string | null;
-    token: string | null;
-}
 type ReducerType = {
     type: string;
     payload?: object;
