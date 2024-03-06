@@ -1,2 +1,1 @@
-export { loader as LoginLoader } from './loader/loader';
-export { Login } from './ui/Login';
+export { Login as F_Login } from './ui/Login';

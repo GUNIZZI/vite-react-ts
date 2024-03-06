@@ -1,5 +1,5 @@
 import { redirect } from 'react-router-dom';
-import { auth } from '../../user/User';
+import { auth } from '@/features/auth/user/hooks';
 
 export const loader = async () => {
     // await sleep(3000);
@@ -9,7 +9,8 @@ export const loader = async () => {
             if (auth.currentUser) {
                 console.log('auth 있음  >>  ', auth.currentUser);
                 return redirect('/');
-            } else return null;
+            }
+            return null;
         })
         .catch((err) => {
             console.log('err', err);

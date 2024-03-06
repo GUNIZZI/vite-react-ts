@@ -1,8 +1,9 @@
-import { useAuthState } from '@/app/providers/auth/state';
+// import { useAuthState } from '@/app/providers/auth/index';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks';
 
 const User = () => {
-    const { user, isLogined, userAction } = useAuthState();
+    const { user, isLogined, userAction } = useAuth();
     const navigate = useNavigate();
     return (
         <>

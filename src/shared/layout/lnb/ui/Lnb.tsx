@@ -1,11 +1,12 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import Style from './Lnb.module.scss';
-import { useAuthState } from '@/app/providers/auth/state';
+import { useAuth } from '@/features/auth/user/hooks';
+// import { useAuthState } from '@/app/providers/auth/index';
 
 const Lnb = () => {
     const navigate = useNavigate();
-    const { user, userAction, isLogined } = useAuthState();
+    const { user, userAction, isLogined } = useAuth();
 
     return (
         <div className={Style.wrapper}>

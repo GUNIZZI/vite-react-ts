@@ -1,21 +1,14 @@
 import Style from './Board.module.scss';
-import { auth, isLogined } from '@/features/auth/user/User';
-import { useState, useEffect } from 'react';
-import { redirect } from 'react-router-dom';
-
-// function sleep(ms: number): Promise<void> {
-//     return new Promise((resolve) => {
-//         setTimeout(resolve, ms);
-//     });
-// }
+import { useAuth } from '@/features/auth/user/hooks';
 
 const Board = () => {
-    const [logined] = useState(isLogined);
+    const { user, isLogined } = useAuth();
 
     return (
         <div id={Style.wrapper}>
-            {logined ? 'A' : 'B'}
-            컨텐츠
+            <span>{user.name}</span>
+            <br />
+            <span>{isLogined}</span>
         </div>
     );
 };

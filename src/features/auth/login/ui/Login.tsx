@@ -2,19 +2,11 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 
 import Style from './Login.module.scss';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '@/features/auth/user/User';
-import { useAuthState } from '@/app/providers/auth/state';
-import { redirect } from 'react-router-dom';
+import { auth, useAuth } from '@/features/auth/user/hooks';
 import { I_Inputs } from '../model/input';
 
-// function sleep(ms: number): Promise<void> {
-//     return new Promise((resolve) => {
-//         setTimeout(resolve, ms);
-//     });
-// }
-
 const Login = () => {
-    const { userAction } = useAuthState();
+    const { userAction } = useAuth();
     const [inputs, setInputs] = useState<I_Inputs>({ id: '', pw: '' });
 
     // 입력 이벤트

@@ -1,20 +1,39 @@
-import { Dispatch, createContext, useEffect, useReducer, useState } from 'react';
+import { fbApp } from '@/features/auth/firebase';
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { useEffect, useReducer, useState } from 'react';
+import { I_User, T_UserReducer } from './model/user';
 
-import { auth } from '@/features/auth/user/User';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { I_User } from './model';
+import { sleep } from '@/shared/util';
 
-type ReducerType = {
-    type: string;
-    payload?: object;
-};
-
-const initState: I_User = {
+let initUser: I_User = {
     name: null,
     token: null,
 };
+let initLogined: boolean = false;
 
-const authReducer = (user: I_User, userAction: ReducerType) => {
+const auth = getAuth(fbApp);
+try {
+    await (async () => {
+        return new Promise((res, rej) => {
+            onAuthStateChanged(auth, (userInfo) => {
+                if (userInfo) {
+                    initUser = {
+                        name: userInfo.email,
+                        token: 'accessToken' in userInfo ? String(userInfo.accessToken) : null,
+                    };
+                    initLogined = userInfo.uid ? true : false;
+                    res(userInfo);
+                } else {
+                    rej('error');
+                }
+            });
+        });
+    })();
+} catch (e) {
+    console.log(e);
+}
+
+const userReducer = (user: I_User, userAction: T_UserReducer) => {
     switch (userAction.type) {
         // 로그인
         case 'login':
@@ -43,17 +62,10 @@ const authReducer = (user: I_User, userAction: ReducerType) => {
     return user;
 };
 
-export const AuthContext = createContext<{ user: I_User; userAction: Dispatch<ReducerType>; isLogined: boolean }>({
-    user: initState,
-    userAction: () => null,
-    isLogined: false,
-});
+const useAuth = () => {
+    const [user, userAction] = useReducer(userReducer, initUser);
+    const [isLogined, setIsLogined] = useState(initLogined);
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-    const [user, userAction] = useReducer(authReducer, initState);
-    const [isLogined, setIsLogined] = useState(false);
-
-    // 로그인되어 있으면
     useEffect(() => {
         onAuthStateChanged(auth, (userInfo) => {
             if (userInfo) {
@@ -74,5 +86,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             }
         });
     }, []);
-    return <AuthContext.Provider value={{ user, userAction, isLogined }}>{children}</AuthContext.Provider>;
+
+    return { user, isLogined, userAction };
 };
+export { auth, useAuth };

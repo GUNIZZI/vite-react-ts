@@ -1,4 +1,4 @@
-import { AuthProvider } from './providers/auth/context';
+import { AuthProvider } from './providers/auth/index';
 import { Outlet, useNavigation } from 'react-router-dom';
 
 import Style from './App.module.scss';
@@ -10,14 +10,14 @@ const App = () => {
 
     return (
         <>
-            <AuthProvider>
-                <div id={Style.lnb}>
-                    <Lnb />
-                </div>
-                <div id={Style.content} className={navigation.state === 'loading' ? Style['is-loading'] : ''}>
-                    <Outlet />
-                </div>
-            </AuthProvider>
+            {/* <AuthProvider> */}
+            <div id={Style.lnb}>
+                <Lnb />
+            </div>
+            <div id={Style.content} className={navigation.state === 'loading' ? Style['is-loading'] : ''}>
+                <Outlet />
+            </div>
+            {/* </AuthProvider> */}
         </>
     );
 };

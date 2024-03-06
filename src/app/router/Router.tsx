@@ -1,11 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from '@/app/App';
-import { Login, LoginLoader } from '@/features/auth/login/index';
+import { Login, LoginLoader } from '@/pages/member/login';
 import { Story } from '@/pages/story/index';
 import { Board, BoardLoader } from '@/pages/board/index';
 
-import PrivateRoute from './PrivateRoute';
+import { AuthGuard } from './AuthGuard';
+import { PrivateGuard } from './PrivateGuard';
 import NotFound from '@/pages/err/notFound';
 
 // function sleep(ms: number): Promise<void> {
@@ -39,7 +40,7 @@ const routes = [
             },
             {
                 path: '/board',
-                element: <PrivateRoute />,
+                element: <AuthGuard />,
                 loader: BoardLoader,
                 children: [
                     {
