@@ -1,19 +1,20 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import Style from './Lnb.module.scss';
-import { useAuth } from '@/features/auth/user/hooks';
+// import { useAuth } from '@/features/auth/user/hooks';
 // import { useAuthState } from '@/app/providers/auth/index';
+import { UserState } from '@/app/provider/user';
 
 const Lnb = () => {
     const navigate = useNavigate();
-    const { user, userAction, isLogined } = useAuth();
+    const { user, userAction } = UserState();
 
     return (
         <div className={Style.wrapper}>
             <h1>
                 <strong>GUNI</strong>
                 <span>Vite+React+TS</span>
-                {isLogined ? (
+                {user.name ? (
                     <span>
                         {user.name}
                         <button onClick={() => userAction({ type: 'logout' })}>로그아웃</button>

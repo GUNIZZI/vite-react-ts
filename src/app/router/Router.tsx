@@ -6,7 +6,7 @@ import { Story } from '@/pages/story/index';
 import { Board, BoardLoader } from '@/pages/board/index';
 
 import { AuthGuard } from './AuthGuard';
-import { PrivateGuard } from './PrivateGuard';
+// import { PrivateGuard } from './PrivateGuard';
 import NotFound from '@/pages/err/notFound';
 
 // function sleep(ms: number): Promise<void> {

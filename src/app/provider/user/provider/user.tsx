@@ -1,26 +1,24 @@
-import { fbApp } from '@/features/auth/firebase';
+import { Dispatch, createContext, useEffect, useReducer } from 'react';
+import { I_User, T_UserReducer } from '../model/user';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
-import { useEffect, useReducer, useState } from 'react';
-import { I_User, T_UserReducer } from './model/user';
+import { fbApp } from '@/features/auth/firebase';
 
 let initUser: I_User = {
     name: null,
     token: null,
 };
-let initLogined: boolean = false;
 
 const auth = getAuth(fbApp);
 try {
     await (async () => {
         return new Promise((res, rej) => {
-            onAuthStateChanged(auth, (userInfo) => {
-                if (userInfo) {
+            auth.authStateReady().then(() => {
+                if (auth.currentUser) {
                     initUser = {
-                        name: userInfo.email,
-                        token: 'accessToken' in userInfo ? String(userInfo.accessToken) : null,
+                        name: auth.currentUser.email,
+                        token: 'accessToken' in auth.currentUser ? String(auth.currentUser.accessToken) : null,
                     };
-                    initLogined = userInfo.uid ? true : false;
-                    res(userInfo);
+                    res(auth.currentUser);
                 } else {
                     rej('error');
                 }
@@ -31,14 +29,17 @@ try {
     console.log(e);
 }
 
-const userReducer = (user: I_User, userAction: T_UserReducer) => {
+const reducer = (user: I_User, userAction: T_UserReducer) => {
+    let result: I_User = {
+        ...user,
+    };
     switch (userAction.type) {
         // 로그인
         case 'login':
             if (userAction.payload) {
                 const name = 'name' in userAction.payload ? userAction.payload.name : null;
                 const token = 'token' in userAction.payload ? userAction.payload.token : null;
-                return {
+                result = {
                     name: name,
                     token: token,
                 } as I_User;
@@ -48,7 +49,8 @@ const userReducer = (user: I_User, userAction: T_UserReducer) => {
         case 'logout':
             signOut(auth)
                 .then(() => {
-                    return {
+                    console.log('reducer', userAction);
+                    result = {
                         name: null,
                         token: null,
                     } as I_User;
@@ -56,14 +58,20 @@ const userReducer = (user: I_User, userAction: T_UserReducer) => {
                 .catch((err) => {
                     console.log('로그아웃 실패', err);
                 });
+            break;
     }
-    return user;
+    return result;
 };
 
-const useAuth = () => {
-    const [user, userAction] = useReducer(userReducer, initUser);
-    const [isLogined, setIsLogined] = useState(initLogined);
+const Context = createContext<{ user: I_User; userAction: Dispatch<T_UserReducer> }>({
+    user: initUser,
+    userAction: () => null,
+});
 
+const Provider = ({ children }: { children: React.ReactNode }) => {
+    const [user, userAction] = useReducer(reducer, initUser);
+
+    // 로그인되어 있으면
     useEffect(() => {
         onAuthStateChanged(auth, (userInfo) => {
             if (userInfo) {
@@ -75,16 +83,14 @@ const useAuth = () => {
                     type: 'login',
                     payload,
                 });
-                setIsLogined(true);
             } else {
                 userAction({
                     type: 'logout',
                 });
-                setIsLogined(false);
             }
         });
     }, []);
-
-    return { user, isLogined, userAction };
+    return <Context.Provider value={{ user, userAction }}>{children}</Context.Provider>;
 };
-export { auth, useAuth };
+
+export { Context, Provider };

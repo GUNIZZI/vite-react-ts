@@ -26,7 +26,7 @@ const fbApp = initializeApp(firebaseConfig);
  * ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
  * 스토어
  */
-const db = getFirestore(fbApp);
+const fbStore = getFirestore(fbApp);
 
-export { fbApp, db };
+export { fbApp, fbStore };
 // export { db, signInWithGoogle };

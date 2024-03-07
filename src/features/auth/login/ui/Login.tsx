@@ -3,7 +3,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import Style from './Login.module.scss';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth, useAuth } from '@/features/auth/user/hooks';
-import { I_Inputs } from '../model/input';
+import { I_Inputs } from '../model/login';
 
 const Login = () => {
     const { userAction } = useAuth();
