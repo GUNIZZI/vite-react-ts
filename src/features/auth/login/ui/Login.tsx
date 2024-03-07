@@ -2,11 +2,11 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 
 import Style from './Login.module.scss';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth, useAuth } from '@/features/auth/user/hooks';
+import { UserAuth, UserState } from '@/app/provider/user';
 import { I_Inputs } from '../model/login';
 
 const Login = () => {
-    const { userAction } = useAuth();
+    const { userAction } = UserState();
     const [inputs, setInputs] = useState<I_Inputs>({ id: '', pw: '' });
 
     // 입력 이벤트
@@ -21,7 +21,7 @@ const Login = () => {
     // 서브밋
     const hndlOnSubmit = (e: FormEvent) => {
         e.preventDefault();
-        signInWithEmailAndPassword(auth, inputs.id, inputs.pw)
+        signInWithEmailAndPassword(UserAuth, inputs.id, inputs.pw)
             .then((user) => {
                 userAction({
                     type: 'login',

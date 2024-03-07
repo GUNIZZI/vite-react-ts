@@ -1,10 +1,9 @@
-import { auth } from '@/features/auth/user/hooks';
+import { UserAuth } from '@/app/provider/user';
 import { sleep } from '@/shared/util';
 
 export const loader = async () => {
     // await sleep(3000);
-    return await auth
-        .authStateReady()
+    return await UserAuth.authStateReady()
         .then(async () => {
             await sleep(3000);
             return null;

@@ -1,8 +1,6 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import Style from './Lnb.module.scss';
-// import { useAuth } from '@/features/auth/user/hooks';
-// import { useAuthState } from '@/app/providers/auth/index';
 import { UserState } from '@/app/provider/user';
 
 const Lnb = () => {

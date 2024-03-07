@@ -3,43 +3,48 @@ import { I_User, T_UserReducer } from '../model/user';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { fbApp } from '@/features/auth/firebase';
 
+// 사용자 기본값
 let initUser: I_User = {
     name: null,
     token: null,
 };
 
-const auth = getAuth(fbApp);
+// Firebase Init
+const FbAuth = getAuth(fbApp);
+// 사용자 정보가 있는지 확인
 try {
     await (async () => {
         return new Promise((res, rej) => {
-            auth.authStateReady().then(() => {
-                if (auth.currentUser) {
+            FbAuth.authStateReady().then(() => {
+                if (FbAuth.currentUser) {
                     initUser = {
-                        name: auth.currentUser.email,
-                        token: 'accessToken' in auth.currentUser ? String(auth.currentUser.accessToken) : null,
+                        name: FbAuth.currentUser.email,
+                        token: 'accessToken' in FbAuth.currentUser ? String(FbAuth.currentUser.accessToken) : null,
                     };
-                    res(auth.currentUser);
-                } else {
-                    rej('error');
                 }
+                res(FbAuth.currentUser);
             });
         });
     })();
 } catch (e) {
-    console.log(e);
+    console.log('Firebase Get Auth Error!!', e);
 }
 
+/**
+ * 사용자 인증 프로바이더
+ * reducer - 리듀서
+ * Context - 컨텍스트
+ * Provider - 프로바이더
+ */
 const reducer = (user: I_User, userAction: T_UserReducer) => {
-    let result: I_User = {
-        ...user,
-    };
+    console.log('userAction', userAction);
     switch (userAction.type) {
         // 로그인
         case 'login':
             if (userAction.payload) {
                 const name = 'name' in userAction.payload ? userAction.payload.name : null;
                 const token = 'token' in userAction.payload ? userAction.payload.token : null;
-                result = {
+                return {
                     name: name,
                     token: token,
                 } as I_User;
@@ -47,20 +52,19 @@ const reducer = (user: I_User, userAction: T_UserReducer) => {
             break;
         // 로그아웃
         case 'logout':
-            signOut(auth)
+            signOut(FbAuth)
                 .then(() => {
-                    console.log('reducer', userAction);
-                    result = {
-                        name: null,
-                        token: null,
-                    } as I_User;
+                    console.log('로그아웃 성공');
                 })
                 .catch((err) => {
                     console.log('로그아웃 실패', err);
                 });
-            break;
+            return {
+                name: null,
+                token: null,
+            } as I_User;
     }
-    return result;
+    return user;
 };
 
 const Context = createContext<{ user: I_User; userAction: Dispatch<T_UserReducer> }>({
@@ -71,9 +75,13 @@ const Context = createContext<{ user: I_User; userAction: Dispatch<T_UserReducer
 const Provider = ({ children }: { children: React.ReactNode }) => {
     const [user, userAction] = useReducer(reducer, initUser);
 
+    useEffect(() => {
+        console.log('effect change -> ', user);
+    }, [user]);
+
     // 로그인되어 있으면
     useEffect(() => {
-        onAuthStateChanged(auth, (userInfo) => {
+        onAuthStateChanged(FbAuth, (userInfo) => {
             if (userInfo) {
                 const payload: I_User = {
                     name: userInfo.email,
@@ -83,14 +91,15 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
                     type: 'login',
                     payload,
                 });
-            } else {
-                userAction({
-                    type: 'logout',
-                });
             }
+            // } else {
+            //     userAction({
+            //         type: 'logout',
+            //     });
+            // }
         });
     }, []);
     return <Context.Provider value={{ user, userAction }}>{children}</Context.Provider>;
 };
 
-export { Context, Provider };
+export { FbAuth, Context, Provider };

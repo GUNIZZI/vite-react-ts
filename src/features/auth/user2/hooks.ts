@@ -20,10 +20,8 @@ try {
                         token: 'accessToken' in userInfo ? String(userInfo.accessToken) : null,
                     };
                     initLogined = userInfo.uid ? true : false;
-                    res(userInfo);
-                } else {
-                    rej('error');
                 }
+                res(userInfo);
             });
         });
     })();

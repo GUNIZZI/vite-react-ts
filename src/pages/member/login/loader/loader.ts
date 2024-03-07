@@ -1,13 +1,12 @@
+import { UserAuth } from '@/app/provider/user';
 import { redirect } from 'react-router-dom';
-import { auth } from '@/features/auth/user/hooks';
 
 export const loader = async () => {
     // await sleep(3000);
-    return await auth
-        .authStateReady()
+    return await UserAuth.authStateReady()
         .then(() => {
-            if (auth.currentUser) {
-                console.log('auth 있음  >>  ', auth.currentUser);
+            if (UserAuth.currentUser) {
+                console.log('auth 있음  >>  ', UserAuth.currentUser);
                 return redirect('/');
             }
             return null;

@@ -1,14 +1,14 @@
+import { UserState } from '@/app/provider/user';
 import Style from './Board.module.scss';
-import { useAuth } from '@/features/auth/user/hooks';
 
 const Board = () => {
-    const { user, isLogined } = useAuth();
+    const { user } = UserState();
 
     return (
         <div id={Style.wrapper}>
             <span>{user.name}</span>
             <br />
-            <span>{isLogined}</span>
+            <span>{user.token}</span>
         </div>
     );
 };

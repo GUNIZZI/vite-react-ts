@@ -1,13 +1,14 @@
-import { useAuth } from '@/features/auth/user/hooks';
-// import { useEffect } from 'react';
+import { UserState } from '../provider/user';
 import { Navigate, Outlet } from 'react-router-dom';
 
 const AuthGuard = () => {
-    const { isLogined } = useAuth();
+    const { user } = UserState();
 
-    if (!isLogined) alert('로그인이 필요한 서비스입니다.');
+    console.log('Auth Guard', user.name);
 
-    return isLogined ? <Outlet /> : <Navigate to="/login" replace />;
+    if (!user.name) alert('로그인이 필요한 서비스입니다.');
+
+    return user.name ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
 export { AuthGuard };

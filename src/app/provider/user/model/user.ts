@@ -6,4 +6,5 @@ export interface I_User {
 export type T_UserReducer = {
     type: string;
     payload?: object;
+    isLogined?: boolean;
 };
