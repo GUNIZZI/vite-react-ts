@@ -59,11 +59,13 @@ const reducer = (user: I_User, userAction: T_UserReducer) => {
                 .catch((err) => {
                     console.log('로그아웃 실패', err);
                 });
+            console.log('userAction - 로그아웃 요청 후', user.name);
             return {
                 name: null,
                 token: null,
             } as I_User;
     }
+    console.log('userAction end', userAction);
     return user;
 };
 
