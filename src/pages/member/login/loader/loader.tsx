@@ -1,4 +1,3 @@
-import { UserAuth, UserState } from '@/app/provider/user';
 import { redirect } from 'react-router-dom';
 
 export const loader = async () => {
@@ -16,7 +15,9 @@ export const loader = async () => {
     //         return null;
     //     });
 
-    console.log('login loader  >>  ', UserAuth.currentUser);
-    if (UserAuth.currentUser) return redirect('/');
-    else return null;
+    return null;
+
+    // console.log('login loader  >>  ', UserAuth.currentUser);
+    // if (UserAuth.currentUser) return redirect('/');
+    // else return null;
 };

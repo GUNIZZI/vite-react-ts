@@ -2,11 +2,9 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 
 import Style from './Login.module.scss';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { UserAuth, UserState } from '@/app/provider/user';
 import { I_Inputs } from '../model/login';
 
 const Login = () => {
-    const { userAction } = UserState();
     const [inputs, setInputs] = useState<I_Inputs>({ id: '', pw: '' });
 
     // 입력 이벤트
@@ -21,20 +19,20 @@ const Login = () => {
     // 서브밋
     const hndlOnSubmit = (e: FormEvent) => {
         e.preventDefault();
-        signInWithEmailAndPassword(UserAuth, inputs.id, inputs.pw)
-            .then((user) => {
-                userAction({
-                    type: 'login',
-                    payload: {
-                        name: user.user.email,
-                        token: 'accessToken' in user.user ? user.user.accessToken : '',
-                    },
-                });
-                history.back();
-            })
-            .catch((error) => {
-                if (error.code === 'auth/invalid-credential') alert('유효하지않은 계정 정보입니다.');
-            });
+        // signInWithEmailAndPassword(UserAuth, inputs.id, inputs.pw)
+        //     .then((user) => {
+        //         userAction({
+        //             type: 'login',
+        //             payload: {
+        //                 name: user.user.email,
+        //                 token: 'accessToken' in user.user ? user.user.accessToken : '',
+        //             },
+        //         });
+        //         history.back();
+        //     })
+        //     .catch((error) => {
+        //         if (error.code === 'auth/invalid-credential') alert('유효하지않은 계정 정보입니다.');
+        //     });
     };
 
     return (

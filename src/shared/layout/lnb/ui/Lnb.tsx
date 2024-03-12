@@ -1,46 +1,39 @@
-import { NavLink, useNavigate } from 'react-router-dom';
-
+import { NavLink } from 'react-router-dom';
+import { F_User } from '@/features/user';
 import Style from './Lnb.module.scss';
-import { UserState } from '@/app/provider/user';
 
 const Lnb = () => {
-    const navigate = useNavigate();
-    const { user, userAction } = UserState();
+    const navName = [{ '--text': 'Story' }, { '--text': 'Board' }];
 
     return (
         <div className={Style.wrapper}>
             <h1>
-                <strong>GUNI</strong>
+                <NavLink to="/">
+                    <strong>GUNI</strong>
+                </NavLink>
                 <span>Vite+React+TS</span>
-                {user.name ? (
-                    <span>
-                        {user.name}
-                        <button onClick={() => userAction({ type: 'logout' })}>로그아웃</button>
-                    </span>
-                ) : (
-                    <button onClick={() => navigate('login')}>관리자 모드</button>
-                )}
+                <F_User />
             </h1>
             <nav>
                 <ul>
                     <li>
                         <NavLink to="/story" className={({ isActive }) => (isActive ? Style.activeItem : '')}>
-                            Story
+                            <span style={{ '--navName': '"Story"' } as React.CSSProperties}>Story</span>
                         </NavLink>
                     </li>
                     <li>
                         <NavLink to="/board" className={({ isActive }) => (isActive ? Style.activeItem : '')}>
-                            Board
+                            <span style={{ '--navName': '"Board"' } as React.CSSProperties}>Board</span>
                         </NavLink>
                     </li>
                     <li>
                         <NavLink to="/works" className={({ isActive }) => (isActive ? Style.activeItem : '')}>
-                            Works
+                            <span style={{ '--navName': '"Works"' } as React.CSSProperties}>Works</span>
                         </NavLink>
                         <ul>
                             <li>
                                 <NavLink to="/works/authRouter" className={({ isActive }) => (isActive ? Style.activeItem : '')}>
-                                    권한 라우팅
+                                    <span style={{ '--navName': '"권한 라우팅"' } as React.CSSProperties}>권한 라우팅</span>
                                 </NavLink>
                             </li>
                         </ul>

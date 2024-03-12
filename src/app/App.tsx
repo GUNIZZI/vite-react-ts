@@ -3,21 +3,26 @@ import { Outlet, useNavigation } from 'react-router-dom';
 import Style from './App.module.scss';
 
 import { Lnb } from '@/shared/layout/lnb/Index';
-import { UserProvider } from '@/app/provider/user/';
+
+import { queryClient, QueryClientProvider, ReactQueryDevtools } from './query/init';
+// import '@/features/auth/firebase/Auth';
 
 const App = () => {
     const navigation = useNavigation();
 
     return (
         <>
-            <UserProvider>
+            <QueryClientProvider client={queryClient}>
+                {/* <UserProvider> */}
                 <div id={Style.lnb}>
                     <Lnb />
                 </div>
                 <div id={Style.content} className={navigation.state === 'loading' ? Style['is-loading'] : ''}>
                     <Outlet />
                 </div>
-            </UserProvider>
+                {/* </UserProvider> */}
+                <ReactQueryDevtools />
+            </QueryClientProvider>
         </>
     );
 };

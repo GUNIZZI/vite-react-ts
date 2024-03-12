@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
 // import { getAnalytics } from 'firebase/analytics';
 import { getFirestore } from 'firebase/firestore';
 
@@ -24,9 +25,15 @@ const fbApp = initializeApp(firebaseConfig);
 
 /**
  * ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+ * 사용자
+ */
+const fbAuth = getAuth(fbApp);
+
+/**
+ * ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
  * 스토어
  */
 const fbStore = getFirestore(fbApp);
 
-export { fbApp, fbStore };
+export { fbApp, fbAuth, fbStore };
 // export { db, signInWithGoogle };

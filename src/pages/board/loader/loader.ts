@@ -1,9 +1,10 @@
-import { UserAuth } from '@/app/provider/user';
+import { fbAuth } from '@/features/auth/firebase';
 import { sleep } from '@/shared/util';
 
 export const loader = async () => {
     // await sleep(3000);
-    return await UserAuth.authStateReady()
+    return await fbAuth
+        .authStateReady()
         .then(async () => {
             await sleep(3000);
             return null;
