@@ -1,17 +1,13 @@
-import { useEffect } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+import { userStore } from '../store/user';
+import { useEffect } from 'react';
 
 const AuthGuard = () => {
-    // const { user } = UserState();
-    // const isLoggedIn = !!user.name;
+    useEffect(() => {
+        if (!userStore.getState().getUser()) alert('로그인이 필요한 서비스입니다.');
+    }, []);
 
-    // console.log('Auth Guard', user.name, isLoggedIn);
-    // useEffect(() => {
-    //     if (!isLoggedIn) alert('로그인이 필요한 서비스입니다.');
-    // }, [isLoggedIn]);
-
-    return <Outlet />;
-    // return user.name ? <Outlet /> : <Navigate to="/login" replace />;
+    return userStore.getState().getUser() ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
 export { AuthGuard };

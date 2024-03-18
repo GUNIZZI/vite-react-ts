@@ -1,4 +1,4 @@
-import { fbAuth } from '@/features/auth/firebase';
+import { fbAuth } from '@/shared/auth/firebase';
 import { sleep } from '@/shared/util';
 
 export const loader = async () => {

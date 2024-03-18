@@ -1,19 +1,14 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 
 import App from '@/app/App';
 import { Login, LoginLoader } from '@/pages/member/login';
-import { Story } from '@/pages/story/index';
+import { StoryList, StoryView, StoryRegist } from '@/pages/story/index';
 import { Board, BoardLoader } from '@/pages/board/index';
 
 import { AuthGuard } from './AuthGuard';
-// import { PrivateGuard } from './PrivateGuard';
+import { PrivateGuard } from './PrivateGuard';
 import NotFound from '@/pages/err/notFound';
 
-// function sleep(ms: number): Promise<void> {
-//     return new Promise((resolve) => {
-//         setTimeout(resolve, ms);
-//     });
-// }
 /**
  * fallbackElement
  * - RouterProvider에 선언하며 App이 로드 되는 동안 보여지는 UI
@@ -36,7 +31,30 @@ const routes = [
             },
             {
                 path: '/story',
-                element: <Story />,
+                children: [
+                    {
+                        path: '',
+                        element: <Navigate to="list" />,
+                    },
+                    {
+                        path: 'list',
+                        element: <StoryList />,
+                    },
+                    {
+                        path: 'view',
+                        element: <StoryView />,
+                    },
+                    {
+                        path: 'regist',
+                        element: <PrivateGuard />,
+                        children: [
+                            {
+                                path: '',
+                                element: <StoryRegist />,
+                            },
+                        ],
+                    },
+                ],
             },
             {
                 path: '/board',

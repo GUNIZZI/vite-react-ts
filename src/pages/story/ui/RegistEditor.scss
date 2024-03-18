@@ -1,0 +1,100 @@
+.quill {
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    font-weight: 100;
+
+    .ql-snow {
+        border: none !important;
+
+        $defaultColor: #fff;
+        $hoverColor: #4adf09;
+
+        &.ql-toolbar {
+            position: sticky;
+            top: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+            background: #222;
+            z-index: 1;
+
+            .ql-stroke {
+                fill: none;
+                stroke: $defaultColor;
+            }
+
+            .ql-fill {
+                fill: $defaultColor;
+                stroke: none;
+            }
+
+            .ql-picker {
+                color: $defaultColor;
+
+                .ql-picker-label.ql-active {
+                    color: $hoverColor !important;
+                }
+            }
+
+            .ql-picker-options {
+                background: #000;
+
+                .ql-picker-item {
+                    &:hover,
+                    &.ql-selected {
+                        color: $hoverColor !important;
+                    }
+                }
+            }
+
+            button:hover .ql-stroke,
+            .ql-picker-label:hover .ql-stroke {
+                fill: none;
+                stroke: $hoverColor !important;
+            }
+
+            .ql-active .ql-stroke {
+                fill: none;
+                stroke: $hoverColor !important;
+            }
+
+            button:hover .ql-fill,
+            .ql-picker-label:hover .ql-fill {
+                fill: $hoverColor !important;
+                stroke: none;
+            }
+            .ql-picker-label:hover {
+                color: $hoverColor !important;
+            }
+
+            .ql-active .ql-fill {
+                fill: $hoverColor !important;
+                stroke: none;
+            }
+        }
+    }
+
+    .ql-editor {
+        min-height: calc(100vh - 400px);
+    }
+
+    .ql-container {
+        font-size: 1rem;
+    }
+
+    .ql-editor .ql-size-small {
+        /* font-size: 0.75em; */
+        font-size: 0.8rem;
+    }
+
+    .ql-editor .ql-size-large {
+        /* font-size: 1.5em; */
+        font-size: 2rem;
+    }
+
+    .ql-editor .ql-size-huge {
+        /* font-size: 2.5em; */
+        font-size: 3rem;
+    }
+}

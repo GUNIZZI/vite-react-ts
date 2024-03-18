@@ -3,7 +3,7 @@ import { F_User } from '@/features/user';
 import Style from './Lnb.module.scss';
 
 const Lnb = () => {
-    const navName = [{ '--text': 'Story' }, { '--text': 'Board' }];
+    // const navName = [{ '--text': 'Story' }, { '--text': 'Board' }];
 
     return (
         <div className={Style.wrapper}>

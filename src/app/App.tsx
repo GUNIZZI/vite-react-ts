@@ -5,7 +5,6 @@ import Style from './App.module.scss';
 import { Lnb } from '@/shared/layout/lnb/Index';
 
 import { queryClient, QueryClientProvider, ReactQueryDevtools } from './query/init';
-// import '@/features/auth/firebase/Auth';
 
 const App = () => {
     const navigation = useNavigation();

@@ -7,16 +7,17 @@ interface I_UserAction {
     getUser: () => boolean;
 }
 
-const userStore = create<I_User & I_UserAction>((set) => ({
-    name: '10',
-    token: '10',
+const userStore = create<I_User & I_UserAction>((set, get) => ({
+    name: null,
+    token: null,
     setUser: ({ name, token }: I_User) => {
         // console.log(name, token);
-        set((state) => ({ name: name, token: token }));
+        // set((state) => ({ name: name, token: token }));
+        set({ name, token });
     },
     getUser: () => {
-        console.log(set);
-        return true;
+        const { name } = get();
+        return name !== null;
     },
 }));
 

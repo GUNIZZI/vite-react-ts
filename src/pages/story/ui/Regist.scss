@@ -1,0 +1,64 @@
+.storyRegist {
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        fieldset {
+            display: grid;
+            // grid-template-columns: 1fr;
+            grid-template-rows: auto auto;
+            align-items: end;
+
+            .title {
+                padding: 5px 0 0.5em 10px;
+                color: #999;
+                font-weight: 100;
+            }
+
+            input {
+                font-size: 1.1em;
+            }
+
+            textarea {
+                height: 60vh;
+            }
+
+            input,
+            textarea {
+                padding: 10px;
+                border: none;
+                border-radius: 10px;
+                background: rgba(255, 255, 255, 0.05);
+                resize: none;
+                color: #fff;
+                font-weight: 100;
+                outline: none;
+            }
+        }
+        .btns {
+            display: flex;
+            justify-content: center;
+            gap: 0.4em;
+            padding: 2em 0 0;
+
+            .btnSave {
+                width: 300px;
+                height: 50px;
+                border: none;
+                border-radius: 100px;
+                background: linear-gradient(334deg, #dcf122 0%, #19d2c3 100%);
+                color: #000;
+                font-size: 1.2em;
+            }
+            .btnCancel {
+                width: 50px;
+                border: none;
+                border-radius: 100px;
+                background: rgba(255, 255, 255, 0.4);
+                color: #000;
+                font-size: 1.2em;
+            }
+        }
+    }
+}
