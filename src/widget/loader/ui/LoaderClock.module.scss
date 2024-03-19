@@ -1,0 +1,52 @@
+.loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.timer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    transform: translateX(-50%) translateY(-50%);
+    padding: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    box-sizing: content-box;
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 35%;
+        height: 4px;
+        background: linear-gradient(334deg, #af33f7 0%, #784bf5 100%);
+        border-radius: 10px;
+        transform-origin: 0 2px;
+        animation: spin infinite linear;
+    }
+
+    &:before {
+        animation-duration: 3s;
+    }
+
+    &:after {
+        width: 24%;
+        background: linear-gradient(334deg, #f83b84 0%, #d94bf5 100%);
+        animation-duration: 15s;
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(1turn);
+    }
+}

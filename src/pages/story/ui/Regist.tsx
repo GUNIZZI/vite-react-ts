@@ -12,13 +12,14 @@ const Regist = () => {
     const { name } = userStore();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [viewSeq, setViewSeq] = useState('');
 
     useEffect(() => {
         /**
-         * 수정 모드로 진인 합 경우
+         * 수정 모드로 진인 한 경우
          */
         const urlParams = new URLSearchParams(window.location.search);
-        const viewSeq = urlParams.get('seq');
+        setViewSeq(urlParams.get('seq') as string);
 
         if (viewSeq) {
             (async () => {
@@ -27,8 +28,6 @@ const Regist = () => {
                 setContent(res.content);
             })();
         }
-
-        console.log('viewSeq', viewSeq);
     }, []);
 
     const submitData = async (e: FormEvent) => {

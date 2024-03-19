@@ -6,6 +6,8 @@ import { Lnb } from '@/shared/layout/lnb/Index';
 
 import { queryClient, QueryClientProvider, ReactQueryDevtools } from './query/init';
 
+import { LoaderClock } from '@/widget/loader';
+
 const App = () => {
     const navigation = useNavigation();
 
@@ -16,8 +18,9 @@ const App = () => {
                 <div id={Style.lnb}>
                     <Lnb />
                 </div>
-                <div id={Style.content} className={navigation.state === 'loading' ? Style['is-loading'] : ''}>
+                <div id={Style.content}>
                     <Outlet />
+                    {navigation.state === 'loading' ? <LoaderClock /> : ''}
                 </div>
                 {/* </UserProvider> */}
                 <ReactQueryDevtools />

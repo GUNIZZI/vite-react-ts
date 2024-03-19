@@ -1,14 +1,15 @@
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 
 import App from '@/app/App';
+import { AppLoader } from '@/app/App.loader';
 import { Login, LoginLoader } from '@/pages/member/login';
 import { StoryList, StoryView, StoryRegist } from '@/pages/story/index';
 import { Board, BoardLoader } from '@/pages/board/index';
+import NotFound from '@/pages/err/notFound';
+import { LoaderClock } from '@/widget/loader';
 
 import { AuthGuard } from './AuthGuard';
 import { PrivateGuard } from './PrivateGuard';
-import NotFound from '@/pages/err/notFound';
-import { AppLoader } from '@/app/App.loader';
 
 /**
  * fallbackElement
@@ -91,7 +92,7 @@ const router = createBrowserRouter(routes, {
 });
 
 const Routers = () => {
-    return <RouterProvider router={router} fallbackElement={<span>Content Loading...</span>}></RouterProvider>;
+    return <RouterProvider router={router} fallbackElement={<LoaderClock />}></RouterProvider>;
 };
 
 export default Routers;

@@ -1,4 +1,5 @@
 import { fbAuth } from '@/shared/auth/firebase';
+import { sleep } from '@/shared/util';
 
 export const AppLoader = async () => {
     // Firebase 로그인 정보 확인
