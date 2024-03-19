@@ -8,6 +8,7 @@ import { Board, BoardLoader } from '@/pages/board/index';
 import { AuthGuard } from './AuthGuard';
 import { PrivateGuard } from './PrivateGuard';
 import NotFound from '@/pages/err/notFound';
+import { AppLoader } from '@/app/App.loader';
 
 /**
  * fallbackElement
@@ -23,6 +24,7 @@ const routes = [
         path: '/',
         element: <App />,
         errorElement: <NotFound status="404" />,
+        loader: AppLoader,
         children: [
             {
                 path: '/login',
