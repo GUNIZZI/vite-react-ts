@@ -11,7 +11,7 @@ const View = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const viewSeq = urlParams.get('seq');
 
-    const [isLoading, setIsLoading] = useState(true);
+    // const [isLoading, setIsLoading] = useState(true);
     const [viewData, setViewData] = useState<I_Story>();
 
     useEffect(() => {

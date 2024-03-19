@@ -1,5 +1,3 @@
-import { fbStore } from '@/shared/auth/firebase';
-import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { I_Story } from '../model/story';
 import { Link } from 'react-router-dom';
