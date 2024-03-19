@@ -1,5 +1,4 @@
 // Import the functions you need from the SDKs you need
-import { sleep } from '@/shared/util';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 // import { getAnalytics } from 'firebase/analytics';
