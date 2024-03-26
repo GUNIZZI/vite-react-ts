@@ -1,6 +1,6 @@
-import Style from './Board.module.scss';
+import Style from './Tech.module.scss';
 
-const Board = () => {
+const Tech = () => {
     return (
         <div id={Style.wrapper}>
             {/* <span>{user.name}</span> */}
@@ -10,4 +10,4 @@ const Board = () => {
     );
 };
 
-export { Board };
+export { Tech };

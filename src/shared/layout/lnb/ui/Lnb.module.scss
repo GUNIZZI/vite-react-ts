@@ -108,13 +108,21 @@
                         }
                     }
                 }
+                ul {
+                    gap: 0;
+                    padding: 10px 0;
 
-                li {
-                    padding-left: 1.5em;
+                    li {
+                        padding-left: 1.5em;
 
-                    a {
-                        color: var(--color-text-teriary);
-                        font-size: var(--size-sm);
+                        a {
+                            color: var(--color-text-teriary);
+                            font-size: var(--size-sm);
+
+                            &::after {
+                                content: none;
+                            }
+                        }
                     }
                 }
             }

@@ -4,7 +4,7 @@ import App from '@/app/App';
 import { AppLoader } from '@/app/App.loader';
 import { Login, LoginLoader } from '@/pages/member/login';
 import { StoryList, StoryView, StoryRegist } from '@/pages/story/index';
-import { Board, BoardLoader } from '@/pages/board/index';
+import { Tech, TechLoader } from '@/pages/tech/index';
 import { AuthRouter } from '@/pages/works/authRouter/Index';
 import { Calcurator } from '@/pages/works/calcurator/Index';
 
@@ -63,13 +63,13 @@ const routes = [
                 ],
             },
             {
-                path: '/board',
+                path: '/tech',
                 element: <AuthGuard />,
-                loader: BoardLoader,
+                loader: TechLoader,
                 children: [
                     {
                         path: '',
-                        element: <Board />,
+                        element: <Tech />,
                     },
                 ],
             },
@@ -99,7 +99,7 @@ const router = createBrowserRouter(routes, {
 });
 
 const Routers = () => {
-    return <RouterProvider router={router} fallbackElement={<LoaderClock />}></RouterProvider>;
+    return <RouterProvider router={router} fallbackElement={<LoaderClock active />}></RouterProvider>;
 };
 
 export default Routers;

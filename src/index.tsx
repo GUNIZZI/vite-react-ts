@@ -7,10 +7,8 @@ import '@/app/styles/index.scss';
 const App = () => {
     return (
         <>
-            {/* <React.StrictMode> */}
             <GlobalStyles />
             <Routers />
-            {/* </React.StrictMode> */}
         </>
     );
 };
