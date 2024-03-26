@@ -5,6 +5,9 @@ import { AppLoader } from '@/app/App.loader';
 import { Login, LoginLoader } from '@/pages/member/login';
 import { StoryList, StoryView, StoryRegist } from '@/pages/story/index';
 import { Board, BoardLoader } from '@/pages/board/index';
+import { AuthRouter } from '@/pages/works/authRouter/Index';
+import { Calcurator } from '@/pages/works/calcurator/Index';
+
 import NotFound from '@/pages/err/notFound';
 import { LoaderClock } from '@/widget/loader';
 
@@ -73,14 +76,18 @@ const routes = [
             {
                 path: '/works',
                 children: [
-                    // {
-                    //     path: '',
-                    //     element: <Navigate to="authRouter" />,
-                    // },
-                    // {
-                    //     path: 'authRouter',
-                    //     element: <Works_AuthRouter />,
-                    // },
+                    {
+                        path: '',
+                        element: <Navigate to="authRouter" />,
+                    },
+                    {
+                        path: 'authrouter',
+                        element: <AuthRouter />,
+                    },
+                    {
+                        path: 'calcurator',
+                        element: <Calcurator />,
+                    },
                 ],
             },
         ],

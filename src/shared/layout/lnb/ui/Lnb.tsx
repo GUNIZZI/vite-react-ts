@@ -32,8 +32,13 @@ const Lnb = () => {
                         </NavLink>
                         <ul>
                             <li>
-                                <NavLink to="/works/authRouter" className={({ isActive }) => (isActive ? Style.activeItem : '')}>
+                                <NavLink to="/works/authrouter" className={({ isActive }) => (isActive ? Style.activeItem : '')}>
                                     <span style={{ '--navName': '"권한 라우팅"' } as React.CSSProperties}>권한 라우팅</span>
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/works/calcurator" className={({ isActive }) => (isActive ? Style.activeItem : '')}>
+                                    <span style={{ '--navName': '"계산기"' } as React.CSSProperties}>계산기</span>
                                 </NavLink>
                             </li>
                         </ul>
