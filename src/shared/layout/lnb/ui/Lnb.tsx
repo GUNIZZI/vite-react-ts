@@ -11,24 +11,24 @@ const Lnb = () => {
                 <NavLink to="/">
                     <strong>GUNI</strong>
                 </NavLink>
-                <span>Vite+React+TS</span>
+                <span>일상/개발 Blog</span>
                 <F_User />
             </h1>
             <nav>
                 <ul>
                     <li>
-                        <NavLink to="/story" className={({ isActive }) => (isActive ? Style.activeItem : '')}>
-                            <span style={{ '--navName': '"Story"' } as React.CSSProperties}>Story</span>
+                        <NavLink to="/story" style={{ '--navName': '"Story"' } as React.CSSProperties}>
+                            <span>Story</span>
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/board" className={({ isActive }) => (isActive ? Style.activeItem : '')}>
-                            <span style={{ '--navName': '"Board"' } as React.CSSProperties}>Board</span>
+                        <NavLink to="/board" style={{ '--navName': '"Board"' } as React.CSSProperties}>
+                            <span>Board</span>
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/works" className={({ isActive }) => (isActive ? Style.activeItem : '')}>
-                            <span style={{ '--navName': '"Works"' } as React.CSSProperties}>Works</span>
+                        <NavLink to="/works" style={{ '--navName': '"Works"' } as React.CSSProperties}>
+                            <span>Works</span>
                         </NavLink>
                         <ul>
                             <li>

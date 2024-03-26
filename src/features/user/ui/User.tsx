@@ -7,6 +7,8 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import Styles from './User.module.scss';
+
 const User = () => {
     const navigate = useNavigate();
     const { name, setUser } = userStore();
@@ -26,23 +28,25 @@ const User = () => {
     }, []);
 
     return (
-        <>
+        <div className={Styles.userInfo}>
             {name ? (
                 // Login 중
-                <span>
-                    {name}
-                    {/* <button onClick={() => signOut(fbAuth)}>로그아웃</button> */}
-                </span>
-            ) : (
-                // Login 중 아님
-                // <button onClick={() => navigate('login')}>로그인</button>
                 <>
-                    <DS_Button className={`is-round is-circle`} onClick={() => navigate('login')}>
+                    <span>{name}</span>
+                    <DS_Button variant="icon circle" size="sm" onClick={() => signOut(fbAuth)}>
                         <span className="material-icons">logout</span>
                     </DS_Button>
                 </>
+            ) : (
+                // Login 중 아님
+                <>
+                    <DS_Button variant="circle" size="sm" onClick={() => navigate('login')}>
+                        <span className="txt">Sign in</span>
+                        <span className="material-icons">login</span>
+                    </DS_Button>
+                </>
             )}
-        </>
+        </div>
     );
 };
 export { User };

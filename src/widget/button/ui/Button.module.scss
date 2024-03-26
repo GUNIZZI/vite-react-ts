@@ -1,8 +1,15 @@
 .btn {
-    display: inline-block;
-    padding: 10px;
+    display: flex;
+    gap: 5px;
+    padding: 0.5em 1em;
     border: none;
     background: rgba(255, 255, 255, 0.5);
+    line-height: 1;
+    cursor: pointer;
+
+    > * {
+        font-size: 1em;
+    }
 
     &.is-round {
         border-radius: 0.5em;
@@ -10,8 +17,24 @@
     &.is-circle {
         border-radius: 50%;
     }
-}
 
-.txt {
-    display: block;
+    // Variant
+    &.is-variant-icon {
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+    }
+    &.is-variant-round {
+        border-radius: 0.2em;
+    }
+    &.is-variant-circle {
+        border-radius: 5em;
+    }
+
+    // Size
+    &.is-size-xsm {
+        font-size: var(--size-xsm);
+    }
+    &.is-size-sm {
+        font-size: var(--size-sm);
+    }
 }

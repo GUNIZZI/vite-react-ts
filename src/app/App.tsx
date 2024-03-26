@@ -14,6 +14,7 @@ import { useRef } from 'react';
 
 const App = () => {
     const location = useLocation();
+    const location = useLocation();
     const navigation = useNavigation();
     const nodeRef = useRef(null);
     const currentOutlet = useOutlet();
@@ -37,3 +38,5 @@ const App = () => {
 };
 
 export default App;
+
+// https://reactcommunity.org/react-transition-group/with-react-router

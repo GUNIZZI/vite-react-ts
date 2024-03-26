@@ -7,15 +7,16 @@ import DOMPurify from 'isomorphic-dompurify';
 import './List.scss';
 import { dateTsToDateStr } from '@/shared/util';
 import { API_StoryList } from '@/shared/api/story';
+import { userStore } from '@/app/store/user';
 
 const List = () => {
+    const { getUser } = userStore();
     const [isLoading, setIsLoading] = useState(true);
     const [listData, setListData] = useState<I_Story[]>([]);
 
     useEffect(() => {
         (async () => {
             const res = await API_StoryList();
-            console.log(res);
             setListData(res as I_Story[]);
             setIsLoading(false);
         })();
@@ -41,15 +42,19 @@ const List = () => {
                                 __html: DOMPurify.sanitize(item?.textContent?.slice(0, 400) || item.content),
                             }}></div>
                         <Link to={{ pathname: '../View', search: `?seq=${item.seq}` }} className="link"></Link>
-                        <Link to={{ pathname: '../Regist', search: `?seq=${item.seq}` }} className="btnEdit" title="수정">
-                            <span className="material-icons">edit_note</span>
-                        </Link>
+                        {getUser() && (
+                            <Link to={{ pathname: '../Regist', search: `?seq=${item.seq}` }} className="btnEdit" title="수정">
+                                <span className="material-icons">edit_note</span>
+                            </Link>
+                        )}
                     </div>
                 ))}
             </div>
-            <Link className="btnAdd" to="/story/regist">
-                글쓰기
-            </Link>
+            {getUser() && (
+                <Link className="btnAdd" to="/story/regist">
+                    글쓰기
+                </Link>
+            )}
         </div>
     );
 };
