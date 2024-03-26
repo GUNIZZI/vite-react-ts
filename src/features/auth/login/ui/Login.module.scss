@@ -3,22 +3,43 @@
     flex-direction: column;
     justify-content: center;
     align-self: center;
-    max-width: 400px;
-    margin: 0 auto;
+
+    > * {
+        width: 400px;
+        margin: 0 auto;
+    }
 
     h1 {
         // flex: 0 0;
-        font-size: 2em;
-        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        *:first-child {
+            font-size: 10em;
+            font-weight: 100;
+            opacity: 0.2;
+        }
     }
 }
 .inputs {
     display: flex;
     flex-direction: column;
     gap: 5px;
+    padding: 20px 0 0 0;
 
     > span {
         display: flex;
         flex-direction: column;
+    }
+
+    .btns {
+        display: flex;
+        gap: 0.5em;
+
+        > button:first-child {
+            flex: 1 1 auto;
+        }
     }
 }

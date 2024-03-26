@@ -14,7 +14,9 @@ $easeOut: cubic-bezier(0.64, 0, 0.78, 0);
 .pageInOut-exit {
     position: absolute;
     top: 50px;
+    left: 50px;
     transform: translateY(0);
+    width: 100%;
     height: 100vh;
     overflow: hidden;
     opacity: 1;
@@ -22,6 +24,7 @@ $easeOut: cubic-bezier(0.64, 0, 0.78, 0);
 .pageInOut-exit-active {
     position: absolute;
     transform: translateY(-100vh);
+    width: 100%;
     height: 100vh;
     overflow: hidden;
     opacity: 0;

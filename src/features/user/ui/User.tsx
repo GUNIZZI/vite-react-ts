@@ -34,7 +34,7 @@ const User = () => {
                 <>
                     <span>{name}</span>
                     <DS_Button variant="icon circle" size="sm" onClick={() => signOut(fbAuth)}>
-                        <span className="material-icons">logout</span>
+                        <span className="material-symbols-outlined">logout</span>
                     </DS_Button>
                 </>
             ) : (
@@ -42,7 +42,7 @@ const User = () => {
                 <>
                     <DS_Button variant="circle" size="sm" onClick={() => navigate('login')}>
                         <span className="txt">Sign in</span>
-                        <span className="material-icons">login</span>
+                        <span className="material-symbols-outlined">login</span>
                     </DS_Button>
                 </>
             )}

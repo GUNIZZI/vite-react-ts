@@ -6,7 +6,9 @@
 
 #content {
     flex: 1 1;
+    position: relative;
     padding: 50px;
+    box-sizing: border-box;
 }
 
 .is-loading {

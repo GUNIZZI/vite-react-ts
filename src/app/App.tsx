@@ -9,44 +9,44 @@ import { queryClient, QueryClientProvider, ReactQueryDevtools } from './query/in
 import { LoaderClock } from '@/widget/loader';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import './App.transition.scss';
 import { useRef } from 'react';
 
-import type { ThemeConfig } from 'antd';
-import { ConfigProvider, theme } from 'antd';
+// import type { ThemeConfig } from 'antd';
+// import { ConfigProvider, theme } from 'antd';
 
-const { getDesignToken, useToken } = theme;
+// const { getDesignToken, useToken } = theme;
 
-const config: ThemeConfig = {
-    token: {
-        colorPrimary: '#ff0000',
-    },
-};
-const globalToken = getDesignToken(config);
+import './App.transition.scss';
+
+// const config: ThemeConfig = {
+//     token: {
+//         colorPrimary: '#5acbe7',
+//     },
+// };
+// const globalToken = getDesignToken(config);
 
 const App = () => {
     const location = useLocation();
     const navigation = useNavigation();
-    const nodeRef = useRef(null);
     const currentOutlet = useOutlet();
-    const { token } = useToken();
+    // const { token } = useToken();
 
     return (
         <>
-            <ConfigProvider theme={config}>
-                <QueryClientProvider client={queryClient}>
-                    <div id={Style.lnb}>
-                        <Lnb />
-                    </div>
-                    <TransitionGroup id={Style.content}>
-                        <CSSTransition key={location.pathname} timeout={1400} classNames="pageInOut">
-                            <div ref={nodeRef}>{currentOutlet}</div>
-                        </CSSTransition>
-                    </TransitionGroup>
+            {/* <ConfigProvider theme={config}> */}
+            <QueryClientProvider client={queryClient}>
+                <div id={Style.lnb}>
+                    <Lnb />
+                </div>
+                <TransitionGroup id={Style.content}>
+                    <CSSTransition key={location.pathname} timeout={1400} classNames="pageInOut">
+                        <div>{currentOutlet}</div>
+                    </CSSTransition>
+                </TransitionGroup>
 
-                    <LoaderClock active={navigation.state === 'loading'} pageMode />
-                </QueryClientProvider>
-            </ConfigProvider>
+                <LoaderClock active={navigation.state === 'loading'} pageMode />
+            </QueryClientProvider>
+            {/* </ConfigProvider> */}
         </>
     );
 };
