@@ -1,14 +1,16 @@
-import { Tooltip } from 'antd';
+import { Button, Tooltip } from 'antd';
 import { NavLink } from 'react-router-dom';
 import { F_User } from '@/features/user';
 import Style from './Lnb.module.scss';
+import { themeStore } from '@/app/store/theme';
 
 const Lnb = () => {
-    // const navName = [{ '--text': 'Story' }, { '--text': 'Board' }];
+    const { theme, setTheme } = themeStore();
 
     return (
         <div className={Style.wrapper}>
             <h1>
+                <Button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>Dark Mode</Button>
                 <NavLink to="/">
                     <strong>GUNI</strong>
                 </NavLink>

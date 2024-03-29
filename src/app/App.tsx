@@ -9,44 +9,46 @@ import { queryClient, QueryClientProvider, ReactQueryDevtools } from './query/in
 import { LoaderClock } from '@/widget/loader';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import { useRef } from 'react';
-
-// import type { ThemeConfig } from 'antd';
-// import { ConfigProvider, theme } from 'antd';
-
-// const { getDesignToken, useToken } = theme;
-
 import './App.transition.scss';
 
-// const config: ThemeConfig = {
-//     token: {
-//         colorPrimary: '#5acbe7',
-//     },
-// };
-// const globalToken = getDesignToken(config);
+// AntD Theme
+import { ConfigProvider, theme as AntTheme } from 'antd';
+import { AntdTheme } from '@/app/styles/AntdTheme';
+import { themeStore } from './store/theme';
+import { useEffect, useState } from 'react';
+
+// algorithm: theme.darkAlgorithm,
 
 const App = () => {
     const location = useLocation();
     const navigation = useNavigation();
     const currentOutlet = useOutlet();
-    // const { token } = useToken();
+
+    const { defaultAlgorithm, darkAlgorithm } = AntTheme;
+    const { theme } = themeStore();
+    const [useTheme, setUseTheme] = useState(AntdTheme);
+
+    useEffect(() => {
+        const curTheme = theme == 'light' ? defaultAlgorithm : darkAlgorithm;
+        setUseTheme({ ...AntdTheme, algorithm: curTheme });
+    }, [theme]);
 
     return (
         <>
-            {/* <ConfigProvider theme={config}> */}
-            <QueryClientProvider client={queryClient}>
-                <div id={Style.lnb}>
-                    <Lnb />
-                </div>
-                <TransitionGroup id={Style.content}>
-                    <CSSTransition key={location.pathname} timeout={1400} classNames="pageInOut">
-                        <div>{currentOutlet}</div>
-                    </CSSTransition>
-                </TransitionGroup>
+            <ConfigProvider theme={useTheme}>
+                <QueryClientProvider client={queryClient}>
+                    <div id={Style.lnb}>
+                        <Lnb />
+                    </div>
+                    <TransitionGroup id={Style.content}>
+                        <CSSTransition key={location.pathname} timeout={1400} classNames="pageInOut">
+                            <div className={Style.wrapper}>{currentOutlet}</div>
+                        </CSSTransition>
+                    </TransitionGroup>
 
-                <LoaderClock active={navigation.state === 'loading'} pageMode />
-            </QueryClientProvider>
-            {/* </ConfigProvider> */}
+                    <LoaderClock active={navigation.state === 'loading'} pageMode />
+                </QueryClientProvider>
+            </ConfigProvider>
         </>
     );
 };

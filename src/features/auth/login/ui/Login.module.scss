@@ -34,12 +34,38 @@
         flex-direction: column;
     }
 
+    input {
+        padding-top: 0.5em !important;
+        padding-bottom: 0.5em !important;
+    }
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        transition: background-color 5000s ease-in-out 0s;
+        -webkit-transition: background-color 9999s ease-out;
+        -webkit-box-shadow: 0 0 0px 1000px rgb(0, 0, 0) inset !important;
+        -webkit-text-fill-color: #fff !important;
+    }
+
+    .guest {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 1rem 0 1rem 0.5rem;
+        color: #999;
+        font-size: 1.1em;
+    }
+
     .btns {
         display: flex;
-        gap: 0.5em;
 
-        > button:first-child {
+        > button {
             flex: 1 1 auto;
+            height: 60px;
+            background: linear-gradient(124deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-teriary) 100%) !important;
+            color: #000;
+            font-weight: bold;
         }
     }
 }
