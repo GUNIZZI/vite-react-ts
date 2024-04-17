@@ -1,21 +1,21 @@
-import { Button, Tooltip } from 'antd';
+import { Tooltip } from 'antd';
 import { NavLink } from 'react-router-dom';
 import { F_User } from '@/features/user';
+import { W_ThemeControler } from '@/widget/themeChanger/index';
 import Style from './Lnb.module.scss';
 import { themeStore } from '@/app/store/theme';
 
 const Lnb = () => {
-    const { theme, setTheme } = themeStore();
+    const { theme } = themeStore();
 
     return (
-        <div className={Style.wrapper}>
+        <div className={`${Style.wrapper} ${theme === 'dark' && Style['is-darkMode']}`}>
             <h1>
-                <Button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>Dark Mode</Button>
                 <NavLink to="/">
                     <strong>GUNI</strong>
                 </NavLink>
                 <span>일상/개발 Blog</span>
-                <F_User />
+                <F_User className={Style.userInfo} />
             </h1>
             <nav>
                 <ul>
@@ -52,6 +52,8 @@ const Lnb = () => {
                     </li>
                 </ul>
             </nav>
+
+            <W_ThemeControler className={Style.themeControler} />
         </div>
     );
 };

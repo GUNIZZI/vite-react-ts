@@ -4,18 +4,27 @@ import Style from './App.module.scss';
 
 import { Lnb } from '@/shared/layout/lnb/Index';
 
-import { queryClient, QueryClientProvider, ReactQueryDevtools } from './query/init';
+import { queryClient, QueryClientProvider } from './query/init';
 
+// 로더
 import { LoaderClock } from '@/widget/loader';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
+// 트랜지션
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import './App.transition.scss';
 
 // AntD Theme
-import { ConfigProvider, theme as AntTheme } from 'antd';
-import { AntdTheme } from '@/app/styles/AntdTheme';
+import { ConfigProvider, Layout } from 'antd';
+import { LightTheme } from '@/app/theme/LightTheme';
+import { DarkTheme } from '@/app/theme/DarkTheme';
 import { themeStore } from './store/theme';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+// 테마별 스타일 적용을 원할하게 하기 위해 Layout 사용
+const { Sider, Content } = Layout;
+
+// 테마 자동 바뀌기 위한 타임체크(18시 이후에 다크테마 적용)
+const curTime = new Date().getHours();
 
 // algorithm: theme.darkAlgorithm,
 
@@ -24,29 +33,35 @@ const App = () => {
     const navigation = useNavigation();
     const currentOutlet = useOutlet();
 
-    const { defaultAlgorithm, darkAlgorithm } = AntTheme;
+    // const { defaultAlgorithm, darkAlgorithm } = AntTheme;
     const { theme } = themeStore();
-    const [useTheme, setUseTheme] = useState(AntdTheme);
+    const [useTheme, setUseTheme] = useState(curTime > 18 ? DarkTheme : LightTheme);
+    const isMounted = useRef(false);
 
     useEffect(() => {
-        const curTheme = theme == 'light' ? defaultAlgorithm : darkAlgorithm;
-        setUseTheme({ ...AntdTheme, algorithm: curTheme });
+        if (isMounted.current) {
+            setUseTheme(theme == 'light' ? DarkTheme : LightTheme);
+        } else {
+            isMounted.current = true;
+        }
     }, [theme]);
 
     return (
         <>
             <ConfigProvider theme={useTheme}>
                 <QueryClientProvider client={queryClient}>
-                    <div id={Style.lnb}>
-                        <Lnb />
-                    </div>
-                    <TransitionGroup id={Style.content}>
-                        <CSSTransition key={location.pathname} timeout={1400} classNames="pageInOut">
-                            <div className={Style.wrapper}>{currentOutlet}</div>
-                        </CSSTransition>
-                    </TransitionGroup>
-
-                    <LoaderClock active={navigation.state === 'loading'} pageMode />
+                    <Layout>
+                        <Sider id={Style.lnb}>
+                            <Lnb />
+                        </Sider>
+                        {/* 페이징 트랜지션 */}
+                        <TransitionGroup id={Style.content}>
+                            <CSSTransition key={location.pathname} timeout={1400} classNames="pageInOut">
+                                <Content className={Style.wrapper}>{currentOutlet}</Content>
+                            </CSSTransition>
+                        </TransitionGroup>
+                        <LoaderClock active={navigation.state === 'loading'} pageMode />
+                    </Layout>
                 </QueryClientProvider>
             </ConfigProvider>
         </>

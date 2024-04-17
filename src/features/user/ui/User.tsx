@@ -9,7 +9,11 @@ import { useNavigate } from 'react-router-dom';
 
 import Styles from './User.module.scss';
 
-const User = () => {
+type OwnProps = {
+    className: string;
+};
+
+const User = ({ className }: OwnProps) => {
     const navigate = useNavigate();
     const { name, setUser } = userStore();
 
@@ -28,7 +32,7 @@ const User = () => {
     }, []);
 
     return (
-        <div className={Styles.userInfo}>
+        <div className={[Styles.userInfo, className].join(' ')}>
             {name ? (
                 // Login 중
                 <>

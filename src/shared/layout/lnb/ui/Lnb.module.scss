@@ -3,8 +3,8 @@
     top: 0;
     height: 100vh;
     padding: 30px;
-    border-right: 1px solid #202122;
-    background: #2e2f37;
+    // border-right: 1px solid #202122;
+    // background: #2e2f37;
     box-sizing: border-box;
     overflow: auto;
 
@@ -126,6 +126,22 @@
                     }
                 }
             }
+        }
+    }
+
+    .themeControler {
+        position: absolute;
+        bottom: 1em;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    // 다크 모드일 때
+    &.is-darkMode {
+        // background: red;
+
+        .userInfo {
+            background: red;
         }
     }
 }
